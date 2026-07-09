@@ -22,19 +22,46 @@ A commit description should let a reviewer understand:
 
 ## Commit Subject
 
-Write the first line as a concise imperative summary:
+Write the first line using a Conventional Commit-style subject:
 
 ```text
-Add commit message guidelines
+docs: add commit message guidelines
+```
+
+Format:
+
+```text
+type(optional-scope): concise imperative summary
 ```
 
 Rules:
 
-- Use imperative mood: `Add`, `Fix`, `Move`, `Update`, `Remove`.
+- Use a lowercase type followed by a colon.
+- Use imperative mood after the colon: `add`, `fix`, `move`, `update`, `remove`.
 - Keep it specific to the user-visible or repository-visible change.
 - Avoid vague subjects like `Update docs`, `Fix stuff`, or `Changes`.
 - Prefer the smallest accurate scope over a broad label.
 - Do not end the subject with a period.
+
+Common types:
+
+- `feat`: user-facing feature or new capability.
+- `fix`: bug fix or correctness fix.
+- `docs`: documentation-only change.
+- `test`: test-only change.
+- `refactor`: code restructuring without behavior change.
+- `perf`: performance improvement.
+- `build`: build system, dependency, or packaging change.
+- `ci`: CI configuration or automation change.
+- `chore`: maintenance that does not fit the other types.
+- `revert`: revert a previous commit.
+
+Use an optional scope when it adds useful context:
+
+```text
+fix(progress): archive active progress before switching plans
+docs(commits): add conventional commit types
+```
 
 ## Commit Body
 
@@ -51,7 +78,7 @@ Use short paragraphs or bullets. Include:
 Example:
 
 ```text
-Add commit message guidelines
+docs: add commit message guidelines
 
 Document how agents should write commit subjects and bodies, including
 what context to capture before committing and how to report verification.
