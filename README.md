@@ -43,7 +43,7 @@ Consuming repositories should store AI process artifacts under `.ai/artifacts/`:
 
 - Plans: `.ai/artifacts/plans/*.md`
 - Active progress: `.ai/artifacts/progress/progress.md`
-- Archived or resumable progress: `.ai/artifacts/progress/progress-{description}.md`
+- Archived or resumable progress: `.ai/artifacts/progress/{sequence}_progress-{description}.md`
 
 See [guidelines/workflow.md](guidelines/workflow.md), [guidelines/planning.md](guidelines/planning.md), and [guidelines/progress.md](guidelines/progress.md) for the full rules.
 

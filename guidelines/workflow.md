@@ -78,7 +78,7 @@ If a consuming repository defines stricter gates, follow the stricter requiremen
 ### Compliant Sequence
 
 1. Draft and approve plan in chat.
-2. Save the plan to `.ai/artifacts/plans/YYYY-MM-DD_feature_plan.md`.
+2. Save the plan to `.ai/artifacts/plans/01_feature_plan.md`.
 3. Update `.ai/artifacts/progress/progress.md` for that same feature, unless explicitly skipped.
 4. Start implementation edits.
 

@@ -113,7 +113,7 @@ domain-b/
 ├── guidelines/        # Repo-specific workflows broader than one domain
 └── artifacts/
     ├── plans/         # Consuming-repository plans
-    └── progress/      # Active progress.md plus archived progress-{description}.md files
+    └── progress/      # Active progress.md plus archived {sequence}_progress-{description}.md files
 ```
 
 When adding a new reusable guideline, place it under `ai-guidelines/guidelines/` and add a row for it in `ai-guidelines/AGENTS.md`.

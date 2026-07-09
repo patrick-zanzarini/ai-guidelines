@@ -8,7 +8,7 @@ Guidelines for maintaining a consuming repository's active `.ai/artifacts/progre
 
 - Keep active implementation state in `.ai/artifacts/progress/progress.md`.
 - Treat `.ai/artifacts/progress/progress.md` as the single active feature record.
-- Keep archived or resumable progress records in `.ai/artifacts/progress/progress-{description}.md`.
+- Keep archived or resumable progress records in `.ai/artifacts/progress/{sequence}_progress-{description}.md`.
 - Keep planning artifacts in `.ai/artifacts/plans/`; link them from progress files instead of duplicating plan text.
 
 ---
@@ -16,9 +16,10 @@ Guidelines for maintaining a consuming repository's active `.ai/artifacts/progre
 ## Switching Active Progress
 
 - Use `progress.md` only for the current active plan or tracked implementation.
-- Before starting a different persisted plan, rename the current `progress.md` to `progress-{description}.md`, where `{description}` is a short kebab-case feature description.
-- When resuming a previous plan, first archive the current `progress.md` if it exists, then rename that plan's `progress-{description}.md` back to `progress.md`.
-- If no active work is being tracked, `.ai/artifacts/progress/` may contain only archived `progress-{description}.md` files.
+- Start archive sequences at `01`, increment them in archive order, and keep at least two digits (`01`, `02`, ... `99`, `100`).
+- Before starting a different persisted plan, rename the current `progress.md` to `{sequence}_progress-{description}.md`, where `{sequence}` is the next zero-padded archive number and `{description}` is a short kebab-case feature description.
+- When resuming a previous plan, first archive the current `progress.md` if it exists, then rename that plan's `{sequence}_progress-{description}.md` back to `progress.md`.
+- If no active work is being tracked, `.ai/artifacts/progress/` may contain only archived `{sequence}_progress-{description}.md` files.
 - Do not keep duplicate active progress records for the same plan.
 
 ---
@@ -121,19 +122,19 @@ Replace `progress.md` with a new feature record only when:
 Archive procedure for incomplete or resumable work:
 
 1. Update `Current Status` with the pause or handoff state.
-2. Rename `.ai/artifacts/progress/progress.md` to `.ai/artifacts/progress/progress-{description}.md`.
+2. Rename `.ai/artifacts/progress/progress.md` to `.ai/artifacts/progress/{sequence}_progress-{description}.md` using the next archive sequence number.
 3. Create or restore `.ai/artifacts/progress/progress.md` for the newly active plan.
 
 Replacement procedure for completed or cancelled work:
 
 1. Finalize current feature state in `Current Status`.
-2. Rename the completed record to `progress-{description}.md` if future reference is useful, or replace it only when the repository does not need a separate archive.
+2. Rename the completed record to `{sequence}_progress-{description}.md` if future reference is useful, or replace it only when the repository does not need a separate archive.
 3. Carry forward only unresolved items that apply to the new scope.
 
 Resume procedure:
 
 1. Archive the current `progress.md` if another task is active.
-2. Rename the target `.ai/artifacts/progress/progress-{description}.md` to `.ai/artifacts/progress/progress.md`.
+2. Rename the target `.ai/artifacts/progress/{sequence}_progress-{description}.md` to `.ai/artifacts/progress/progress.md`.
 3. Update `Latest Update` to describe the resumed state before implementation edits.
 
 ---
@@ -146,7 +147,7 @@ Resume procedure:
 **Status:** [In Progress / Testing / Blocked / Done / Cancelled]
 **Started:** YYYY-MM-DD
 **Target Branch:** [e.g., develop]
-**Plan:** `../plans/YYYY-MM-DD_feature-name_plan-name.md` or none
+**Plan:** `../plans/01_feature-name_plan-name.md` or none
 
 ## 1. Overview
 [Brief description of the feature, user story, or main objective.]

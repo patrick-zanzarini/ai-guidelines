@@ -7,9 +7,11 @@ Guidelines for creating implementation plans through structured discovery.
 ## File Output
 
 - **Location**: Save all plans to the consuming repository's `.ai/artifacts/plans/` folder.
-- **Naming**: Use date-prefixed format: `YYYY-MM-DD_{feature-name}_{plan-name}.md`.
-  - Example: `.ai/artifacts/plans/2026-01-30_authentication_oauth-integration.md`
-  - Example: `.ai/artifacts/plans/2026-01-30_dashboard_performance-refactor.md`
+- **Naming**: Use a zero-padded sequence followed by the plan description: `{sequence}_{feature-name}_{plan-name}.md`.
+  - Start at `01` and increment the sequence for each new plan so filenames retain creation order.
+  - Keep at least two digits (`01`, `02`, ... `99`, `100`).
+  - Example: `.ai/artifacts/plans/01_authentication_oauth-integration.md`
+  - Example: `.ai/artifacts/plans/02_dashboard_performance-refactor.md`
 - **One plan per task**: Each distinct task gets its own plan file.
 - **Update, don't duplicate**: If revisiting a plan, update the existing file rather than creating a new one.
 - **Persistence rule**: Interactive plan approval does not write files; create or update the `.ai/artifacts/plans/*.md` file before implementation work starts.
