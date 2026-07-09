@@ -11,6 +11,7 @@ Use it for:
 - Shared workflow gates and execution order.
 - Planning and progress artifact standards.
 - Interviewing guidance before large plans.
+- Commit message and staging guidance.
 - Progressive-disclosure rules for maintaining `AGENTS.md` files.
 
 ## Consuming Repository Setup
@@ -31,6 +32,7 @@ guidelines/
   workflow.md
   planning.md
   interviewing.md
+  commits.md
   progress.md
   progressive-disclosure.md
 ```
@@ -44,3 +46,7 @@ Consuming repositories should store AI process artifacts under `.ai/artifacts/`:
 - Archived or resumable progress: `.ai/artifacts/progress/progress-{description}.md`
 
 See [guidelines/workflow.md](guidelines/workflow.md), [guidelines/planning.md](guidelines/planning.md), and [guidelines/progress.md](guidelines/progress.md) for the full rules.
+
+## Commit Conventions
+
+Use [guidelines/commits.md](guidelines/commits.md) when creating commits or drafting commit descriptions.

@@ -15,6 +15,7 @@ After the shared workflow is read, follow the consuming repository's local `AGEN
 | [Workflow](guidelines/workflow.md) | Required first read for planning, implementation, and design tasks. |
 | [Planning](guidelines/planning.md) | Plan file standards, naming, and structure. |
 | [Interviewing](guidelines/interviewing.md) | Clarifying requirements before planning or large implementation. |
+| [Commit Guidelines](guidelines/commits.md) | Commit message structure, staging discipline, and verification notes. |
 | [Progress Tracking](guidelines/progress.md) | `.ai/artifacts/progress/progress.md` format, switching rules, consistency checks, and template. |
 | [Progressive Disclosure](guidelines/progressive-disclosure.md) | Maintaining `AGENTS.md` structures and instruction routing. |
 
