@@ -43,10 +43,7 @@ Add a body when context is not obvious. Include only what helps future readers:
 
 - Why the change exists.
 - The main behavior or workflow difference.
-- Relevant verification commands and results.
 - Migration, risk, or follow-up information.
-
-If verification could not run, state what was not verified and why.
 
 ## Multi-Repository Work
 

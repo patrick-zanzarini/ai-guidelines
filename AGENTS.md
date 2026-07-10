@@ -13,7 +13,7 @@ Before planning, implementation, or design work, read [Workflow](guidelines/work
 | [Workflow](guidelines/workflow.md) | Request classification, execution gates, verification, approval, and handoff. |
 | [Tasks](guidelines/tasks.md) | Task-record triggers, schema, static Plan contract, mutable Progress contract, and lifecycle. |
 | [Interviewing](guidelines/interviewing.md) | Inspect-first discovery, decision-relevant questions, assumptions, and issue prioritization. |
-| [Commit Guidelines](guidelines/commits.md) | Commit authorization, staging discipline, message structure, and verification notes. |
+| [Commit Guidelines](guidelines/commits.md) | Commit authorization, staging discipline, and message structure. |
 | [Progressive Disclosure](guidelines/progressive-disclosure.md) | Instruction ownership, placement, overrides, promotion, pruning, and review. |
 
 Each reusable rule has one owner document. Other files should link to the owner instead of redefining the rule.
