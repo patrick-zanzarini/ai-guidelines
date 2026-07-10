@@ -1,100 +1,70 @@
 # Workflow
 
-Single source of truth for reusable execution workflow and gates across repositories that reference `ai-guidelines`.
+Single source of truth for reusable request classification, execution gates, verification, and handoff across repositories using these shared guidelines.
 
 ## Mandatory Read Order
 
-When a consuming repository references the shared instructions:
+1. Read this workflow by direct path.
+2. Read the consuming repository's root `AGENTS.md`.
+3. Read relevant routed domain instructions and source-of-truth documents.
 
-1. Read this workflow file by direct path.
-2. Read the consuming repository's root `AGENTS.md` if it has not already been read for the current task.
-3. Read any relevant domain `AGENTS.md` files or source-of-truth docs routed by that repository.
+Within project guidance, safety and external-effect gates cannot be relaxed. Shared workflow rules are defaults; an explicit consuming-repository exception may specialize process details such as artifact location, project commands, or domain-specific approval requirements.
 
-If a consuming repository defines stricter gates, follow the stricter requirement.
+## Classify The Request
 
-## Gate Trigger and Sequence
+| Class | Expected behavior | Task record |
+|-------|-------------------|-------------|
+| Advisory or review | Inspect and answer without mutation. | Not required |
+| Diagnosis | Determine and explain the cause; do not fix unless requested. | Usually not required |
+| Direct low-risk implementation | Implement a clear, small, single-session change. | Optional |
+| Tracked implementation | Plan and execute substantial, risky, multi-session, migration, multi-repo, or handoff-sensitive work. | Required |
+| Externally impactful work | Prepare the work, then obtain explicit approval before the external or irreversible action. | Required when implementation is substantial or resumable |
 
-- Progress Gate applies only when the current task has a persisted `.ai/artifacts/plans/*.md` file in the consuming repository, unless the user explicitly asks to skip the progress gate for the current task.
-- A plan file for a different task does not trigger Progress Gate for the current task.
-- Required sequence for plan-driven implementation:
-  1. Persist the plan file in the consuming repository's `.ai/artifacts/plans/` folder.
-  2. Update the consuming repository's active `.ai/artifacts/progress/progress.md`, unless the user explicitly asked to skip the progress gate.
-  3. Make implementation changes.
-- Implementation change means any edit to code, docs, config, tests, scripts, or instruction files.
+Create a task when the user explicitly requests a persisted plan or tracking record, even if the work would otherwise be small. Use [Tasks](tasks.md) for its schema and lifecycle.
 
-## Task Flow
+## Discovery Gate
 
-### 1. Classify the Request
+- Inspect available repository and system context before asking questions.
+- Ask only about unresolved decisions that materially affect scope, behavior, architecture, risk, or acceptance.
+- Resolve blocker-level contradictions before locking a Plan.
+- Document reasonable non-blocking assumptions instead of turning every uncertainty into an interview.
+- Use [Interviewing](interviewing.md) for question selection and prioritization.
 
-- **Planning request**: follow [Planning](planning.md) for plan artifact rules.
-- **Implementation with a current-task plan**: apply the Progress Gate in this file and use [Progress Tracking](progress.md) for file structure.
-- **Direct implementation without a current-task plan**: proceed with consuming-repository and domain rules; `.ai/artifacts/progress/progress.md` tracking is optional.
-- **Domain-specific design or content output**: read the consuming repository's domain source-of-truth docs before proposing content.
+## Task Gate
 
-### 2. Interview Process Before Planning
+When a task record is required:
 
-- Interview-first discovery is mandatory for planning requests.
-- Use [Interviewing](interviewing.md) categories to drive questions:
-  - Unclear Specifications
-  - Contradictions
-  - Edge Cases
-  - Potential Issues
-  - Scope
-- Prioritize blocker-level issues first, especially contradictions and unclear specifications.
-- Continue clarifications until blocker-level issues are resolved or explicitly deferred by the user.
-- Capture key interview decisions in the plan notes before implementation starts.
-- Interview may be abbreviated only when allowed by [Planning](planning.md) and [Interviewing](interviewing.md).
+1. Create the task under the consuming repository's configured task location.
+2. Complete its Plan while status is `Draft`.
+3. Resolve or explicitly defer blocker-level uncertainties.
+4. Set it to `Ready` and record `Plan Locked`, or lock it as implementation begins.
+5. Update mutable Progress at material checkpoints during implementation.
 
-### 3. Planning Gate
+Task-record creation and maintenance are process operations, not implementation changes, and do not recursively trigger another task gate. If a required update is missed, reconcile it at the next safe checkpoint; do not interrupt an atomic edit merely to update prose.
 
-- Interview-first discovery is mandatory before drafting a plan.
-- Do not draft plans with unresolved blocker-level contradictions or unclear specifications.
-- Save approved plans under the consuming repository's `.ai/artifacts/plans/` folder before any implementation starts.
-- Plan approval in chat does not persist files automatically; implementation is blocked until the plan exists as a `.ai/artifacts/plans/*.md` file.
+## Implementation Gate
 
-### 4. Progress Gate
+- Apply instructions for every touched project area.
+- Keep changes scoped to the request and preserve unrelated work.
+- Use the locked Plan as the baseline for tracked work.
+- Record deviations as Plan amendments. Obtain user confirmation before accepting amendments that materially expand scope, change user-visible behavior, increase risk, or add external effects.
 
-- User skip exemption: if the user explicitly asks to skip the progress gate, do not create or update `.ai/artifacts/progress/progress.md` for the current task.
-- Otherwise, if the current task has a persisted plan file, this gate applies.
-- When the gate applies, update `.ai/artifacts/progress/progress.md` before any implementation change.
-- When the gate applies, update `.ai/artifacts/progress/progress.md` immediately after each completed implementation phase.
-- When the gate applies, keep checklist state and `Current Status` synchronized.
-- When the gate applies and an update is missed, stop work and update `.ai/artifacts/progress/progress.md` before further edits, verification, or status reporting.
+## External-Effect Approval Gate
 
-### 5. Implementation
+Explicit user authorization is required immediately before destructive or irreversible operations, production changes, deployments, publication, credential or secret changes, paid actions, or messages/actions affecting external people or systems when that authorization has not already been clearly granted.
 
-- Apply domain-specific rules from the touched project area.
-- Keep changes scoped to the user request.
-- Prefer source-of-truth docs over duplicate rules.
+Approval for planning or local implementation does not imply approval for the external action.
 
-### 6. Handoff
+## Verification Gate
 
-- Report what changed and where.
-- Include verification results or explicit blockers.
-- Suggest the next logical step only when useful.
+- Run the narrowest meaningful checks first, followed by broader checks proportionate to risk.
+- Verify changed documentation, configuration, generated output, and migrations as well as source code.
+- Record verification results in the task when one exists.
+- If verification cannot run, state what remains unverified, why, and the resulting risk. Do not claim completion beyond the evidence.
 
-## Examples
+## Commit And Handoff
 
-### Compliant Sequence
-
-1. Draft and approve plan in chat.
-2. Save the plan to `.ai/artifacts/plans/01_feature_plan.md`.
-3. Update `.ai/artifacts/progress/progress.md` for that same feature, unless explicitly skipped.
-4. Start implementation edits.
-
-### Violation Sequence
-
-1. Draft and approve plan in chat.
-2. Start editing code or docs before saving the plan and updating `.ai/artifacts/progress/progress.md`.
-3. Save the plan and update `.ai/artifacts/progress/progress.md` afterward.
-
-This is non-compliant because gate ordering was violated.
-
-## Escalation Rule
-
-If instructions conflict:
-
-1. Follow safety and hard-gate rules first.
-2. Prefer consuming-repository domain `AGENTS.md` files for domain-specific behavior.
-3. Treat shared guideline files as process authority.
-4. Keep consuming-repository root `AGENTS.md` minimal and link to owner documents.
+- Commit only when the user or established repository workflow authorizes it; follow [Commit Guidelines](commits.md).
+- Report what changed, where it changed, verification results, and unresolved risks or blockers.
+- For tracked work, leave Progress consistent with the handoff state and update task status accordingly.
+- Suggest a next step only when it is useful.

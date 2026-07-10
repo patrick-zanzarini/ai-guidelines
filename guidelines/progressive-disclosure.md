@@ -1,150 +1,104 @@
 # AGENTS.md Maintenance Guide
 
-This document explains how to maintain agent instructions using progressive disclosure: keep shared process rules in `ai-guidelines`, keep consuming repository roots minimal, keep domain-specific details in local domain files, and keep repo-specific cross-domain workflows in local `.ai/guidelines/` files.
+Maintain agent instructions through progressive disclosure: reusable process rules live in `ai-guidelines`, consuming roots stay small and route work, domain details live near their domains, and repository-specific cross-domain workflows live under `.ai/guidelines/`.
 
-## Principles
+## Instruction Layers
 
-- **Shared `ai-guidelines/AGENTS.md`**: reusable process guidance and links to shared guidelines.
-- **Consuming repository root `AGENTS.md`**: project summary, mandatory shared-instruction reference, and domain routing.
-- **Domain files**: detailed instructions live in their respective folders inside the consuming repository.
-- **Local `.ai/guidelines/` files**: repository-specific workflows that are broader than one source folder but not reusable enough for shared guidelines.
-- **Load on demand**: agents read only what is needed for the current task.
+| Scope | Owner location | Content |
+|-------|----------------|---------|
+| Multiple repositories | `ai-guidelines/guidelines/` | Reusable workflow, tasks, commits, and instruction maintenance |
+| One repository, project-wide | Consuming root `AGENTS.md` | Project summary, shared reference, routing, and explicit local exceptions |
+| Multiple domains in one repository | `.ai/guidelines/` | Detailed local workflows and tooling |
+| One folder, framework, or domain | Domain `AGENTS.md` | Implementation, naming, architecture, and testing rules for that area |
 
-## Choosing Where Guidelines Belong
+Each rule has one owner document. Other instruction files link to that owner and contain only necessary context or explicit exceptions.
 
-Use progressive disclosure to keep instructions close to the work they govern and reusable rules in the shared repository.
+## Local Exceptions
 
-| Instruction scope | Put it here | Purpose |
-|-------------------|-------------|---------|
-| Applies across multiple repositories | `ai-guidelines/guidelines/` | Reusable process, workflow, planning, progress, commit, and instruction-maintenance standards |
-| Routes agents inside one repository | Consuming root `AGENTS.md` | Project summary, mandatory shared link, workspace map, domain routing, and rare project-wide exceptions |
-| Applies to one folder, framework, or domain | Domain `AGENTS.md` | Implementation conventions, framework rules, naming, testing, and local design constraints for that domain |
-| Applies across multiple local domains but is repo-specific | Consuming repo `.ai/guidelines/` | Detailed local workflows that should not bloat root `AGENTS.md` and are not yet shared standards |
+A consuming root may explicitly specialize shared defaults such as artifact location, branch conventions, package managers, verification commands, or approval requirements. State:
 
-Decision checklist:
+- The shared default being overridden.
+- The replacement rule.
+- The scope of the exception.
+- A link to the local owner document when detailed guidance exists.
 
-- If the rule should affect more than one repository, add or update a shared guideline.
-- If the rule only tells agents where to go inside one repository, keep it in root `AGENTS.md`.
-- If the rule only affects one folder or domain, put it in that domain's `AGENTS.md`.
-- If the rule is repo-specific but useful across multiple local domains, put it in `.ai/guidelines/` and link it from the relevant `AGENTS.md` files.
+Local exceptions cannot weaken safety, preservation of user work, secret handling, or external-effect approval gates.
 
-### Adding Shared Guidelines
+## Adding Or Promoting Guidance
 
-When adding a new reusable guideline:
+When adding reusable guidance:
 
-1. Create or update the owner document under `ai-guidelines/guidelines/`.
-2. Add a row to `ai-guidelines/AGENTS.md` when creating a new guideline file.
-3. Link from `workflow.md` only if the guideline changes mandatory task flow or execution gates.
-4. In consuming repositories, link to the shared guideline instead of duplicating the full rule.
+1. Choose one owner document under `guidelines/`.
+2. Add it to the index in `AGENTS.md` if it is a new file.
+3. Link it from `workflow.md` only when it affects mandatory task flow or gates.
+4. Update README structure and migration notes when the public standard changes.
 
-### Promoting Local Guidelines
+Start experimental or repository-specific rules locally. Promote them only when they apply across repositories. Remove duplicated local wording after promotion and retain only true exceptions.
 
-Start a rule locally when it is repo-specific, experimental, or tied to one project's tooling. Promote it to shared only when it is reusable across repositories or clearly process-level.
+## Maintenance Review
 
-When promoting a rule:
+### Find contradictions
 
-- Move the reusable rule into the shared owner document.
-- Remove duplicate local wording.
-- Keep only repository-specific exceptions in the consuming repository.
+Compare shared, root, local workflow, and domain instructions. Decide which document owns each disputed rule and remove or convert other copies into links or explicit exceptions.
 
-## Maintenance Process
+### Keep actionable guidance
 
-When adding or revising instructions, follow these five steps.
+Retain instructions that are specific enough to change behavior or protect important constraints. Rewrite vague guidance such as “write good tests” into repository-relevant expectations.
 
-### 1. Find Contradictions
+Do not delete a rule merely because it appears obvious or an agent may know it by default. Before deletion, ask:
 
-Identify instructions that conflict with each other across shared, root, and domain files.
+- Is the behavior enforced more reliably elsewhere?
+- Does the rule distinguish this repository or workflow?
+- Is it specific and testable?
+- Would removing it increase correctness, security, privacy, or operational risk?
 
-Examples of contradictions:
+Security-critical guidance, including secret protection and destructive-action constraints, remains explicit or routes to a clear owner document.
 
-- Shared workflow says to persist a plan before implementation, but a local root says plans are optional for the same task type.
-- Root says to use one package manager, but a domain file says to use another.
-- Multiple files define the same convention differently.
+### Remove genuine clutter
 
-Action: for each contradiction, decide which version owns the rule and update or remove the other.
+Remove or consolidate instructions that are:
 
-### 2. Identify the Essentials
+- Duplicated without adding scope-specific meaning.
+- Outdated or tied to removed tooling.
+- Too vague to affect behavior.
+- In the wrong layer.
+- Better enforced by reliable automation, provided the automation and ownership are documented.
 
-Extract only what belongs in each layer.
+## Recommended Structures
 
-| Keep in Shared `ai-guidelines` | Keep in Consuming Root | Keep in Local `.ai/guidelines/` | Move to Domain File |
-|-------------------------------|------------------------|--------------------------------|---------------------|
-| Reusable workflow gates | One-sentence project description | Repo-specific cross-domain workflows | Framework-specific patterns |
-| Planning/progress standards | Mandatory shared-instruction reference | Local test or verification procedures | Naming conventions |
-| Interviewing guidance | Workspace/domain routing | Local tool usage that spans folders | Testing strategies |
-| AGENTS maintenance process | Truly project-wide exceptions | Detailed local process notes | Code organization details |
-
-Rule: if an instruction only matters for one domain, put it in that domain file.
-
-### 3. Group the Rest
-
-Organize remaining instructions into logical categories within domain files, such as:
-
-- Runtime or framework conventions.
-- Dependency and package-manager rules.
-- State, data, or persistence rules.
-- Testing and verification rules.
-- Documentation or content standards.
-
-### 4. Create the File Structure
-
-Recommended shared repository structure:
+Shared repository:
 
 ```text
-ai-guidelines/
-├── AGENTS.md
-└── guidelines/
-    ├── workflow.md
-    ├── planning.md
-    ├── interviewing.md
-    ├── progress.md
-    └── progressive-disclosure.md
+AGENTS.md
+guidelines/
+  workflow.md
+  tasks.md
+  interviewing.md
+  commits.md
+  progressive-disclosure.md
 ```
 
-Recommended consuming repository structure:
+Consuming repository:
 
 ```text
-AGENTS.md              # Root: project summary, shared-instruction reference, domain routing
-domain-a/
-└── AGENTS.md          # Domain-specific instructions
-domain-b/
-└── AGENTS.md          # Domain-specific instructions
+AGENTS.md
+domain-a/AGENTS.md
+domain-b/AGENTS.md
 .ai/
-├── guidelines/        # Repo-specific workflows broader than one domain
-└── artifacts/
-    ├── plans/         # Consuming-repository plans
-    └── progress/      # Active progress.md plus archived {sequence}_progress-{description}.md files
+  guidelines/
+  artifacts/
+    tasks/
 ```
 
-When adding a new reusable guideline, place it under `ai-guidelines/guidelines/` and add a row for it in `ai-guidelines/AGENTS.md`.
-
-### 5. Flag for Deletion
-
-Remove instructions that are:
-
-| Type | Example | Why Delete |
-|------|---------|------------|
-| **Redundant** | "Use meaningful variable names" | AI already knows this |
-| **Too vague** | "Write good tests" | Not actionable |
-| **Overly obvious** | "Don't commit secrets" | Universal knowledge |
-| **Outdated** | References to removed libraries | No longer relevant |
-| **Duplicate** | Same rule in multiple files | Keep one source of truth |
-
-Questions to ask:
-
-- Would an experienced developer need this instruction?
-- Is this specific enough to change behavior?
-- Does the AI already follow this pattern by default?
+Task records are ignored workspace state; tracked durable documentation remains in the repository's normal documentation structure.
 
 ## Review Checklist
 
-Before committing `AGENTS.md` changes:
-
-- [ ] No contradictions between shared, root, and domain files.
-- [ ] Consuming root file fits on one screen when practical.
-- [ ] Each instruction is actionable and specific.
-- [ ] Domain-specific rules are in domain files.
-- [ ] Repo-specific cross-domain workflows are in local `.ai/guidelines/` files and linked from the relevant `AGENTS.md` files.
-- [ ] Reusable process rules are in `ai-guidelines`.
-- [ ] All links are valid.
-- [ ] No redundant or obvious instructions remain.
+- [ ] No unresolved contradictions exist between instruction layers.
+- [ ] Every reusable rule has one owner document.
+- [ ] Local exceptions are explicit and scoped.
+- [ ] Root instructions primarily summarize and route.
+- [ ] Domain rules live near the work they govern.
+- [ ] Security-critical instructions remain explicit or clearly routed.
+- [ ] Shared indexes and README structure are current.
+- [ ] Changed relative links resolve and `git diff --check` passes.

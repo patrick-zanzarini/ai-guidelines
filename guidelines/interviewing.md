@@ -1,118 +1,59 @@
-# Interviewing
+# Interviewing And Discovery
 
-Structured discovery process for clarifying requirements before implementation.
+Guidance for resolving decision-relevant uncertainty before locking a task Plan or making a consequential implementation choice.
 
----
+## Inspect First
 
-## Interview Categories
+Before questioning the user:
+
+1. Read applicable instructions and source-of-truth documents.
+2. Inspect relevant code, configuration, tests, schemas, and current behavior.
+3. Separate discoverable facts from product preferences and tradeoffs.
+4. Resolve facts from the repository or system whenever practical.
+
+Do not ask the user to locate information that can be discovered safely from available context.
+
+## Discovery Categories
 
 | Category | Focus |
 |----------|-------|
-| Unclear Specifications | Ambiguous requirements, undefined business rules, missing detail |
-| Contradictions | Conflicts between requirements or with existing behavior |
-| Edge Cases | Boundary conditions, error scenarios, validation limits |
-| Potential Issues | Technical constraints, integrations, performance, security |
-| Scope | Task boundaries, affected user roles, complexity assessment |
+| Unclear specifications | Ambiguous behavior, undefined rules, missing acceptance criteria |
+| Contradictions | Conflicting requirements, documentation, designs, or existing behavior |
+| Edge cases | Boundaries, errors, validation, permissions, and exceptional paths |
+| Potential issues | Security, performance, compatibility, migration, integration, and operational risk |
+| Scope | Boundaries, affected users or systems, dependencies, and whether work should be split |
 
----
+Categories do not have fixed priorities. Classify each discovered issue by its impact:
 
-## Category Details
+- `Blocker`: implementation or Plan locking would require guessing about a material decision.
+- `High`: the answer changes architecture, user-visible behavior, security, data handling, or major effort.
+- `Medium`: the answer changes a contained implementation choice or acceptance detail.
+- `Low`: a reasonable default can be used with little risk.
 
-### Unclear Specifications
+## Asking Questions
 
-Ask about:
+- Ask only questions whose answers materially improve correctness or alignment.
+- Prioritize blockers, then high-impact tradeoffs.
+- Batch a small number of related questions instead of running a category checklist.
+- Present concrete options when the choice is bounded.
+- Recommend a default and explain its meaningful tradeoff.
+- Ask follow-up questions only when the response reveals another material ambiguity.
 
-- Ambiguous requirements or missing details in user flows.
-- Undefined business rules or logic.
-- Vague acceptance criteria that need clarification.
-- Missing context about existing functionality.
+## Assumptions And Deferral
 
-Example questions:
+- Document reasonable defaults for low-impact uncertainty.
+- Record assumptions that affect implementation or verification in the task Plan.
+- A user may explicitly defer a blocker; record the deferral, its consequence, and the later decision point.
+- Do not let a request to skip interviews override safety, external-effect approval, or a genuinely blocking product decision.
 
-- "What should happen when the user clicks X but condition Y is not met?"
-- "Is there a specific business rule for how Z should be calculated?"
-- "What existing functionality does this feature interact with?"
+## When Discovery Can Be Brief
 
-### Contradictions
+Brief or no questioning is appropriate when:
 
-Ask about:
+- The request and acceptance criteria are already decision-complete.
+- A simple bug has clear reproduction and expected behavior.
+- The repository establishes an unambiguous existing pattern.
+- The change is trivial and low risk.
+- The user has already provided the relevant decisions.
 
-- Requirements that conflict with each other.
-- Behavior that contradicts existing functionality.
-- Inconsistencies between design and stated requirements.
-- Conflicting stakeholder expectations.
-
-Example questions:
-
-- "This requirement says X, but the existing behavior does Y. Which is correct?"
-- "The design shows A, but the description mentions B. Which takes precedence?"
-- "These two acceptance criteria seem to conflict. Can you clarify the expected behavior?"
-
-### Edge Cases
-
-Inquire about:
-
-- Boundary conditions and limits.
-- Error scenarios and exception handling.
-- Exceptional user paths.
-- Data validation limits and constraints.
-- Permission edge cases.
-- Unusual but possible user interactions.
-
-Example questions:
-
-- "What happens if the user submits an empty form?"
-- "How should the system behave when the API is unavailable?"
-- "Are there any character limits or format restrictions for this field?"
-
-### Potential Issues
-
-Discuss:
-
-- Technical constraints or limitations.
-- Integration dependencies with other systems.
-- Performance considerations and expected load.
-- Security implications and data protection needs.
-- Data migration requirements.
-- Backward compatibility with existing features.
-
-Example questions:
-
-- "Does this feature depend on any external APIs or services?"
-- "Are there performance requirements, such as response time under 2 seconds?"
-- "Will this change affect any existing user workflows?"
-
-### Scope
-
-Confirm:
-
-- Whether the task should be split into smaller parts.
-- Which user roles are affected.
-- Expected complexity level.
-- Dependencies on other work.
-
-Example questions:
-
-- "Should this be one task or broken into multiple smaller tasks?"
-- "Which user roles need access to this feature?"
-- "Are there any prerequisites that must be completed first?"
-
----
-
-## Interview Guidelines
-
-1. Use a conversational approach and ask follow-up questions based on responses.
-2. Continue iterative clarification until critical uncertainties are resolved.
-3. Document important decisions made during discovery.
-4. Prioritize blockers that would prevent implementation.
-
----
-
-## When to Skip Interview
-
-The interview can be abbreviated or skipped when:
-
-- User provides a detailed specification with clear acceptance criteria.
-- Task is a simple bug fix with clear reproduction steps.
-- User explicitly requests to skip and proceed directly.
-- Task is a trivial change with obvious implementation.
+Discovery is complete when blockers are resolved or explicitly deferred and remaining assumptions are safe to document.

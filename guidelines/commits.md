@@ -1,34 +1,22 @@
 # Commit Guidelines
 
-Use this guideline when creating commits, drafting commit messages, or summarizing changes for a commit.
+Use this guideline only when the user or an established repository workflow authorizes creating a commit or asks for a commit message.
 
-## Goals
-
-A commit description should let a reviewer understand:
-
-- What changed.
-- Why the change was made.
-- How the behavior, workflow, or artifact layout is affected.
-- What verification was run.
-- Whether any known risk or follow-up remains.
+Repository-local commit conventions override the shared formatting defaults below. They do not override preservation of unrelated changes or secret-safety requirements.
 
 ## Before Committing
 
 - Inspect `git status --short --untracked-files=all`.
-- Inspect the diff for every file that will be staged.
-- Stage only files that belong to the requested change.
-- Do not include unrelated local changes in the commit.
-- Do not rewrite, discard, or clean user changes unless the user explicitly asks.
+- Inspect the complete diff for every file that will be staged, including generated and binary-file summaries.
+- Run verification appropriate to the staged change before committing.
+- Check staged paths and content for credentials, tokens, private keys, personal data, and other secrets.
+- Stage only files belonging to the requested change.
+- Keep commits atomic where practical; split independent changes when doing so improves review or rollback.
+- Do not include, rewrite, discard, clean, or stage unrelated user changes.
 
 ## Commit Subject
 
-Write the first line using a Conventional Commit-style subject:
-
-```text
-docs: add commit message guidelines
-```
-
-Format:
+When the repository does not define another convention, use:
 
 ```text
 type(optional-scope): concise imperative summary
@@ -37,69 +25,32 @@ type(optional-scope): concise imperative summary
 Rules:
 
 - Use a lowercase type followed by a colon.
-- Use imperative mood after the colon: `add`, `fix`, `move`, `update`, `remove`.
-- Keep it specific to the user-visible or repository-visible change.
-- Avoid vague subjects like `Update docs`, `Fix stuff`, or `Changes`.
-- Prefer the smallest accurate scope over a broad label.
+- Use imperative mood: `add`, `fix`, `move`, `update`, or `remove`.
+- Describe the smallest accurate repository-visible change.
 - Do not end the subject with a period.
 
-Common types:
+Common types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`, `ci`, `chore`, `revert`.
 
-- `feat`: user-facing feature or new capability.
-- `fix`: bug fix or correctness fix.
-- `docs`: documentation-only change.
-- `test`: test-only change.
-- `refactor`: code restructuring without behavior change.
-- `perf`: performance improvement.
-- `build`: build system, dependency, or packaging change.
-- `ci`: CI configuration or automation change.
-- `chore`: maintenance that does not fit the other types.
-- `revert`: revert a previous commit.
-
-Use an optional scope when it adds useful context:
+For a breaking change, use `!` before the colon and explain the migration in the body:
 
 ```text
-fix(progress): archive active progress before switching plans
-docs(commits): add conventional commit types
+docs(workflow)!: replace plan and progress files with task records
 ```
 
 ## Commit Body
 
-Add a body when the change is not obvious from the subject or when context will help future readers.
+Add a body when context is not obvious. Include only what helps future readers:
 
-Use short paragraphs or bullets. Include:
+- Why the change exists.
+- The main behavior or workflow difference.
+- Relevant verification commands and results.
+- Migration, risk, or follow-up information.
 
-- Motivation: why the change exists.
-- Scope: the main files, systems, or workflows affected.
-- Behavior: what is different after the commit.
-- Verification: tests, commands, or checks that were run.
-- Risk or follow-up: only when relevant.
+If verification could not run, state what was not verified and why.
 
-Example:
-
-```text
-docs: add commit message guidelines
-
-Document how agents should write commit subjects and bodies, including
-what context to capture before committing and how to report verification.
-
-Verification:
-- Reviewed guideline links from AGENTS.md and README.md
-```
-
-## Verification Notes
-
-When the commit affects code, include the relevant test command in the handoff and, when useful, the commit body.
-
-When the commit affects docs only, a link check, markdown review, or `git diff --check` is usually enough.
-
-If verification could not be run, state that directly and explain why.
-
-## Multi-Repo Work
-
-When a task touches more than one repository:
+## Multi-Repository Work
 
 - Commit each repository separately.
-- Keep each commit scoped to that repository's changes.
-- Report any related uncommitted changes in other repositories.
-- Never stage files from a different repository by accident.
+- Keep each commit scoped to its repository.
+- Recheck status and staged content in each repository.
+- Report related uncommitted work without staging it.
