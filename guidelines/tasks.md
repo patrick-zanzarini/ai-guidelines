@@ -66,7 +66,7 @@ The `## Plan` section contains:
 
 Use numbered step IDs such as `P1`, `P2`, and `P3` so Progress can reference them without changing Plan text.
 
-The Plan may change while status is `Draft`. When approved or implementation begins, set status to `Ready` or `In Progress`, record `Plan Locked`, and stop editing the Plan section. Plans should be concise and implementation-ready. Small snippets, interface shapes, or pseudocode are allowed only when needed to lock a non-obvious contract; avoid implementation-sized code.
+The Plan may change freely while status is `Draft`. When approved or implementation begins, set status to `Ready` or `In Progress` and record `Plan Locked`. After locking, change the Plan only to consolidate an amendment that has already been recorded as `Accepted`; update the affected operative text so readers do not have to reconcile known-bad or superseded instructions against Progress. Never change the locked Plan for a `Proposed` or `Rejected` amendment, and never erase amendment history. Plans should be concise and implementation-ready. Small snippets, interface shapes, or pseudocode are allowed only when needed to lock a non-obvious contract; avoid implementation-sized code.
 
 ## Mutable Progress Contract
 
@@ -84,7 +84,7 @@ Use ISO 8601 timestamps with offsets for updates, decisions, issues, amendments,
 
 ## Plan Amendments
 
-Never silently rewrite a locked Plan.
+Never silently rewrite a locked Plan. Record the amendment and its status before changing affected Plan text.
 
 Append amendments under `### Plan Amendments` with:
 
@@ -95,6 +95,8 @@ Append amendments under `### Plan Amendments` with:
 - User confirmation when the amendment materially changes scope, user-visible behavior, risk, or external effects.
 
 Non-material implementation discoveries may be accepted and recorded without pausing. Material amendments remain `Proposed` until confirmed.
+
+After an amendment becomes `Accepted`, consolidate it into the affected Plan clauses when the existing wording is incomplete, contradictory, or superseded. Keep the accepted amendment in Progress as the durable decision record, preserve the original `Plan Locked` timestamp, update task metadata and Current Update, and ensure the resulting Plan is internally consistent. Historical wording belongs in the amendment record rather than remaining as operative Plan guidance.
 
 ## Multi-Repository Work
 
