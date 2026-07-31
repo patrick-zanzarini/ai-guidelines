@@ -1,59 +1,68 @@
 # Interviewing And Discovery
 
-Guidance for resolving decision-relevant uncertainty before locking a task Plan or making a consequential implementation choice.
+Use this guideline to resolve important uncertainty before you lock a task Plan or make a consequential implementation choice.
 
 ## Inspect First
 
-Before questioning the user:
+Before you ask the user a question:
 
-1. Read applicable instructions and source-of-truth documents.
-2. Inspect relevant code, configuration, tests, schemas, and current behavior.
-3. Separate discoverable facts from product preferences and tradeoffs.
-4. Resolve facts from the repository or system whenever practical.
+1. Read the applicable instructions.
+2. Read the applicable source-of-truth documents.
+3. Inspect the applicable code, configuration, tests, schemas, and current behavior.
+4. Separate discoverable facts from product preferences and tradeoffs.
+5. Resolve facts from the repository or system when practical.
 
-Do not ask the user to locate information that can be discovered safely from available context.
+Do not ask the user to find information that you can safely discover from the available context.
 
 ## Discovery Categories
 
 | Category | Focus |
 |----------|-------|
-| Unclear specifications | Ambiguous behavior, undefined rules, missing acceptance criteria |
+| Unclear specifications | Ambiguous behavior, undefined rules, and missing acceptance criteria |
 | Contradictions | Conflicting requirements, documentation, designs, or existing behavior |
 | Edge cases | Boundaries, errors, validation, permissions, and exceptional paths |
-| Potential issues | Security, performance, compatibility, migration, integration, and operational risk |
-| Scope | Boundaries, affected users or systems, dependencies, and whether work should be split |
+| Potential issues | Security, performance, compatibility, migration, integration, and operational risks |
+| Scope | Boundaries, affected users or systems, dependencies, and whether to split the work |
 
-Categories do not have fixed priorities. Classify each discovered issue by its impact:
+The categories do not have fixed priorities. Assign an impact level to each issue:
 
-- `Blocker`: implementation or Plan locking would require guessing about a material decision.
-- `High`: the answer changes architecture, user-visible behavior, security, data handling, or major effort.
-- `Medium`: the answer changes a contained implementation choice or acceptance detail.
-- `Low`: a reasonable default can be used with little risk.
+- `Blocker`: You would have to guess about a material decision to lock the Plan or implement the change.
+- `High`: The answer changes architecture, user-visible behavior, security, data handling, or major effort.
+- `Medium`: The answer changes a contained implementation choice or acceptance detail.
+- `Low`: You can use a reasonable default with little risk.
 
-## Asking Questions
+## Ask Questions
 
-- Ask only questions whose answers materially improve correctness or alignment.
-- Prioritize blockers, then high-impact tradeoffs.
-- Batch a small number of related questions instead of running a category checklist.
-- Present concrete options when the choice is bounded.
-- Recommend a default and explain its meaningful tradeoff.
-- Ask follow-up questions only when the response reveals another material ambiguity.
+- Ask only a question that materially improves correctness or alignment.
+- Ask about blockers before lower-impact issues.
+- Ask about high-impact tradeoffs before medium-impact or low-impact issues.
+- Group a small number of related questions.
+- Do not use the discovery categories as a question checklist.
+- Give concrete options when the choice is bounded.
+- Recommend a default.
+- Explain the important tradeoff of the recommended default.
+- Ask a follow-up question only when an answer identifies another material ambiguity.
 
-## Assumptions And Deferral
+## Assumptions And Deferrals
 
-- Document reasonable defaults for low-impact uncertainty.
-- Record assumptions that affect implementation or verification in the task Plan.
-- A user may explicitly defer a blocker; record the deferral, its consequence, and the later decision point.
-- Do not let a request to skip interviews override safety, external-effect approval, or a genuinely blocking product decision.
+- Record a reasonable default for low-impact uncertainty.
+- Record each implementation or verification assumption in the task Plan.
+- The user may explicitly defer a blocker.
+- Record each blocker deferral.
+- Record the consequence of a deferred blocker.
+- Record when the deferred decision must be made.
+- Do not let a request to skip questions override a safety gate.
+- Do not let a request to skip questions override external-effect approval.
+- Do not let a request to skip questions override a blocking product decision.
 
 ## When Discovery Can Be Brief
 
-Brief or no questioning is appropriate when:
+Use brief discovery or no questions when one of the following conditions applies:
 
-- The request and acceptance criteria are already decision-complete.
-- A simple bug has clear reproduction and expected behavior.
-- The repository establishes an unambiguous existing pattern.
-- The change is trivial and low risk.
-- The user has already provided the relevant decisions.
+- The request and acceptance criteria contain all necessary decisions.
+- A simple defect has a clear reproduction and expected behavior.
+- The repository defines one clear existing pattern.
+- The change is small and low risk.
+- The user has already made the applicable decisions.
 
-Discovery is complete when blockers are resolved or explicitly deferred and remaining assumptions are safe to document.
+Discovery is complete when all blockers are resolved or explicitly deferred. Remaining assumptions must be safe to record.

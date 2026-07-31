@@ -1,37 +1,43 @@
 # Commit Guidelines
 
-Use this guideline only when the user or an established repository workflow authorizes creating a commit or asks for a commit message.
+Use this guideline only when the user or repository workflow authorizes a commit. Also use this guideline when the user requests a commit message.
 
-Repository-local commit conventions override the shared formatting defaults below. They do not override preservation of unrelated changes or secret-safety requirements.
+Repository-specific commit conventions replace the shared formatting defaults in this document. They do not permit changes to unrelated work. They do not weaken secret-safety requirements.
 
 ## Before Committing
 
-- Inspect `git status --short --untracked-files=all`.
-- Inspect the complete diff for every file that will be staged, including generated and binary-file summaries.
-- Run verification appropriate to the staged change before committing.
-- Check staged paths and content for credentials, tokens, private keys, personal data, and other secrets.
-- Stage only files belonging to the requested change.
-- Keep commits atomic where practical; split independent changes when doing so improves review or rollback.
-- Do not include, rewrite, discard, clean, or stage unrelated user changes.
+1. Inspect `git status --short --untracked-files=all`.
+2. Split independent changes when separate commits improve review or rollback.
+3. Stage only files that belong to the requested change.
+4. Inspect the complete staged diff for each text file.
+5. Inspect the staged summary for each generated or binary file.
+6. Run verification that is applicable to the staged change.
+7. If verification changes proposed commit content, return to step 3.
+8. Inspect `git status --short --untracked-files=all` again.
+9. Inspect the complete staged diff again.
+10. Check staged paths and content for credentials, tokens, private keys, personal data, and other secrets.
+11. Confirm that each commit is atomic when practical.
+
+Do not include, rewrite, discard, clean, or stage unrelated user changes.
 
 ## Commit Subject
 
-When the repository does not define another convention, use:
+When the repository does not define a different convention, use:
 
 ```text
 type(optional-scope): concise imperative summary
 ```
 
-Rules:
+Apply these rules:
 
 - Use a lowercase type followed by a colon.
-- Use imperative mood: `add`, `fix`, `move`, `update`, or `remove`.
+- Use an imperative verb such as `add`, `fix`, `move`, `update`, or `remove`.
 - Describe the smallest accurate repository-visible change.
 - Do not end the subject with a period.
 
-Common types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`, `ci`, `chore`, `revert`.
+Common types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`, `ci`, `chore`, and `revert`.
 
-For a breaking change, use `!` before the colon and explain the migration in the body:
+For a breaking change, add `!` before the colon. Explain the migration in the commit body.
 
 ```text
 docs(workflow)!: replace plan and progress files with task records
@@ -39,15 +45,18 @@ docs(workflow)!: replace plan and progress files with task records
 
 ## Commit Body
 
-Add a body when context is not obvious. Include only what helps future readers:
+Add a body when the subject does not give sufficient context. Include only information that helps future readers:
 
-- Why the change exists.
+- The reason for the change.
 - The main behavior or workflow difference.
 - Migration, risk, or follow-up information.
 
 ## Multi-Repository Work
 
-- Commit each repository separately.
-- Keep each commit scoped to its repository.
-- Recheck status and staged content in each repository.
-- Report related uncommitted work without staging it.
+For each repository:
+
+1. Create a separate commit.
+2. Keep the commit in the repository's scope.
+3. Inspect repository status again.
+4. Inspect staged content again.
+5. Report related uncommitted work without staging it.

@@ -1,6 +1,6 @@
 # AGENTS.md Maintenance Guide
 
-Maintain agent instructions through progressive disclosure: reusable process rules live in `ai-guidelines`, consuming roots stay small and route work, domain details live near their domains, and repository-specific cross-domain workflows live under `.ai/guidelines/`.
+Use progressive disclosure to maintain agent instructions. Store reusable process rules in `ai-guidelines`. Keep consuming root instructions small and use them to route work. Store domain instructions near their domains. Store repository-specific cross-domain workflows in `.ai/guidelines/`.
 
 ## Instruction Layers
 
@@ -11,58 +11,64 @@ Maintain agent instructions through progressive disclosure: reusable process rul
 | Multiple domains in one repository | `.ai/guidelines/` | Detailed local workflows and tooling |
 | One folder, framework, or domain | Domain `AGENTS.md` | Implementation, naming, architecture, and testing rules for that area |
 
-Each rule has one owner document. Other instruction files link to that owner and contain only necessary context or explicit exceptions.
+Each rule must have one owner document. Other instruction files must link to the owner. They must contain only necessary context or explicit exceptions.
 
 ## Local Exceptions
 
-A consuming root may explicitly specialize shared defaults such as artifact location, branch conventions, package managers, verification commands, or approval requirements. State:
+A consuming root may define an explicit exception to a shared default. Examples include artifact locations, branch conventions, package managers, verification commands, and approval requirements.
 
-- The shared default being overridden.
+For each exception, state:
+
+- The shared default that the exception replaces.
 - The replacement rule.
 - The scope of the exception.
 - A link to the local owner document when detailed guidance exists.
 
-Local exceptions cannot weaken safety, preservation of user work, secret handling, or external-effect approval gates.
+A local exception cannot weaken safety, preservation of user work, secret handling, or external-effect approval gates.
 
-## Adding Or Promoting Guidance
+## Add Or Promote Guidance
 
-When adding reusable guidance:
+When you add reusable guidance:
 
-1. Choose one owner document under `guidelines/`.
-2. Add it to the index in `AGENTS.md` if it is a new file.
-3. Link it from `workflow.md` only when it affects mandatory task flow or gates.
-4. Update README structure and migration notes when the public standard changes.
+1. Select one owner document in `guidelines/`.
+2. Add a new file to the index in `AGENTS.md` when applicable.
+3. Link the owner document from `workflow.md` only when the guidance affects a mandatory task flow or gate.
+4. Update the README structure when the public standard changes.
+5. Update README migration notes when the public standard changes.
 
-Start experimental or repository-specific rules locally. Promote them only when they apply across repositories. Remove duplicated local wording after promotion and retain only true exceptions.
+Start an experimental or repository-specific rule in the applicable local instructions. Promote the rule only when it applies to multiple repositories. After promotion, remove duplicate local wording. Keep only explicit local exceptions.
 
 ## Maintenance Review
 
-### Find contradictions
+### Find Contradictions
 
-Compare shared, root, local workflow, and domain instructions. Decide which document owns each disputed rule and remove or convert other copies into links or explicit exceptions.
+1. Compare shared, root, local workflow, and domain instructions.
+2. Identify the owner document for each disputed rule.
+3. Remove each unnecessary copy of the rule.
+4. Replace each necessary scoped copy with a link or explicit exception.
 
-### Keep actionable guidance
+### Keep Actionable Guidance
 
-Retain instructions that are specific enough to change behavior or protect important constraints. Rewrite vague guidance such as “write good tests” into repository-relevant expectations.
+Keep instructions that are specific enough to change behavior or protect an important constraint. Replace vague guidance such as “write good tests” with repository-specific expectations.
 
-Do not delete a rule merely because it appears obvious or an agent may know it by default. Before deletion, ask:
+Do not delete a rule only because the rule appears obvious or an agent already knows the rule. Before you delete a rule, answer these questions:
 
-- Is the behavior enforced more reliably elsewhere?
+- Does another instruction or reliable control enforce the behavior more reliably?
 - Does the rule distinguish this repository or workflow?
-- Is it specific and testable?
-- Would removing it increase correctness, security, privacy, or operational risk?
+- Is the rule specific and testable?
+- Would removal increase risk to correctness, security, privacy, or operations?
 
-Security-critical guidance, including secret protection and destructive-action constraints, remains explicit or routes to a clear owner document.
+Keep security-critical guidance explicit or link to a clear owner document. Security-critical guidance includes secret protection and destructive-action constraints.
 
-### Remove genuine clutter
+### Remove Genuine Clutter
 
-Remove or consolidate instructions that are:
+Remove or consolidate an instruction when one of these conditions applies:
 
-- Duplicated without adding scope-specific meaning.
-- Outdated or tied to removed tooling.
-- Too vague to affect behavior.
-- In the wrong layer.
-- Better enforced by reliable automation, provided the automation and ownership are documented.
+- The instruction duplicates another instruction and adds no scope-specific meaning.
+- The instruction is outdated or refers to removed tooling.
+- The instruction is too vague to affect behavior.
+- The instruction is in the incorrect layer.
+- Reliable automation enforces the instruction, and the automation and ownership are documented.
 
 ## Recommended Structures
 
@@ -90,15 +96,16 @@ domain-b/AGENTS.md
     tasks/
 ```
 
-Task records are ignored workspace state; tracked durable documentation remains in the repository's normal documentation structure.
+Task records are ignored workspace state. Store durable documentation in the repository's tracked documentation structure.
 
 ## Review Checklist
 
-- [ ] No unresolved contradictions exist between instruction layers.
-- [ ] Every reusable rule has one owner document.
-- [ ] Local exceptions are explicit and scoped.
-- [ ] Root instructions primarily summarize and route.
-- [ ] Domain rules live near the work they govern.
-- [ ] Security-critical instructions remain explicit or clearly routed.
-- [ ] Shared indexes and README structure are current.
-- [ ] Changed relative links resolve and `git diff --check` passes.
+- [ ] Resolve all contradictions between instruction layers.
+- [ ] Give each reusable rule one owner document.
+- [ ] Make each local exception explicit and scoped.
+- [ ] Keep root instructions focused on summary and routing.
+- [ ] Store domain rules near the work that they govern.
+- [ ] Keep security-critical instructions explicit or link to a clear owner.
+- [ ] Update shared indexes and the README structure.
+- [ ] Confirm that changed relative links resolve.
+- [ ] Confirm that `git diff --check` passes.
