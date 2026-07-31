@@ -4,7 +4,7 @@ Shared workflow and documentation guidance for repositories that opt into this a
 
 ## Purpose
 
-This repository keeps reusable AI-agent process rules in one place so consuming repositories can keep root `AGENTS.md` files small and project-specific. It covers proportional workflow gates, task records, inspect-first discovery, commit discipline, verification, and progressive instruction disclosure.
+This repository keeps reusable AI-agent rules in one place so consuming repositories can keep root `AGENTS.md` files small and project-specific. It covers communication style, proportional workflow gates, task records, inspect-first discovery, commit discipline, verification, and progressive instruction disclosure.
 
 ## Consuming Repository Setup
 
@@ -27,17 +27,50 @@ Example:
 
 Local exceptions may specialize shared defaults such as artifact location or project tooling. They may not weaken safety or external-effect approval gates.
 
+### `.gitignore` Setup
+
+Add this rule to the consuming repository's root `.gitignore`:
+
+```gitignore
+# Workspace-local AI agent artifacts
+/.ai/artifacts/
+```
+
+Use this narrower rule if the repository tracks other content under `.ai/artifacts/`:
+
+```gitignore
+# Workspace-local AI agent task records
+/.ai/artifacts/tasks/
+```
+
+Keep these instruction files tracked:
+
+- `AGENTS.md`
+- Domain-specific `AGENTS.md` files
+- `.ai/guidelines/`
+
+Do not add an ignore rule for a sibling `ai-guidelines` checkout. The sibling repository is outside the consuming repository.
+
+An ignore rule does not stop Git from tracking a file that is already tracked. Review existing `.ai/artifacts/` files before you remove them from the Git index.
+
 ## Repository Structure
 
 ```text
 AGENTS.md
 guidelines/
+  communication-style.md
   workflow.md
   tasks.md
   interviewing.md
   commits.md
   progressive-disclosure.md
 ```
+
+## Communication Style
+
+[Communication Style](guidelines/communication-style.md) is the single owner for shared writing rules. A global or consuming `AGENTS.md` file must explicitly require agents to read the guideline by direct path. A Markdown link without a mandatory-read instruction is not sufficient.
+
+When migrating existing instructions, remove duplicate detailed writing rules from other `AGENTS.md` files. Keep only the mandatory-read instruction and true scope-specific exceptions.
 
 ## Task Records
 
@@ -47,7 +80,7 @@ Tracked work that needs planning or resumable state uses:
 .ai/artifacts/tasks/01_task-slug.md
 ```
 
-Task records are ignored by Git by default. They support continuity for agents sharing the same workspace, but they are not an audit log and do not travel to another clone. Put durable architecture, product, security, and operational decisions in tracked repository documentation.
+Task records must be ignored by Git. They support continuity for agents sharing the same workspace, but they are not an audit log and do not travel to another clone. Put durable architecture, product, security, and operational decisions in tracked repository documentation.
 
 Small, low-risk, single-session implementation does not require a task record. See [Workflow](guidelines/workflow.md) and [Tasks](guidelines/tasks.md) for triggers and the complete contract.
 

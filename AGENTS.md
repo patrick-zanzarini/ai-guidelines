@@ -4,12 +4,15 @@ Reusable workflow and documentation guidelines for repositories that opt into th
 
 ## Mandatory Read
 
+Before responding to a user request, read [Communication Style](guidelines/communication-style.md) by direct path if you have not already read it for the current task.
+
 Before planning, implementation, or design work, read [Workflow](guidelines/workflow.md) by direct path. Then read the consuming repository's root `AGENTS.md` and relevant routed domain instructions if they have not already been read for the current task.
 
 ## Guideline Index
 
 | Guideline | Authority |
 |-----------|-----------|
+| [Communication Style](guidelines/communication-style.md) | Writing style, response structure, plans, procedures, technical instructions, and user-facing error messages. |
 | [Workflow](guidelines/workflow.md) | Request classification, execution gates, verification, approval, and handoff. |
 | [Tasks](guidelines/tasks.md) | Task-record triggers, schema, static Plan contract, mutable Progress contract, and lifecycle. |
 | [Interviewing](guidelines/interviewing.md) | Inspect-first discovery, decision-relevant questions, assumptions, and issue prioritization. |
@@ -22,7 +25,11 @@ Each reusable rule has one owner document. Other files should link to the owner 
 
 ### Interaction Behavior
 
-- If the user asks a question, review, or diagnosis without requesting implementation, answer it without changing files or external state.
+- **MANDATORY:** When the user asks a question, answer the question.
+- A project-specific question authorizes the read-only investigation that is necessary to answer it. Inspect relevant files and run non-mutating commands when the answer depends on project state.
+- Do not modify files or change local or external state unless the user explicitly requests a change.
+- Before a state-changing action, confirm that the user's request authorizes the action. Do not treat necessary read-only investigation as a state-changing action.
+- Do not run a command only because the user asks what the command does.
 - Preserve unrelated and user-owned changes. Do not rewrite, discard, clean, stage, or commit them without explicit authorization.
 
 ### Process Artifacts
