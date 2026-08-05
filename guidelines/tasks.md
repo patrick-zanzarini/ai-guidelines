@@ -34,6 +34,12 @@ During a v1 migration, preserve the originating plan sequence. If you cannot ide
 
 Task records are workspace-local. They do not replace tracked architecture decisions, product specifications, runbooks, or security documentation.
 
+## Source Formatting
+
+- Do not hard-wrap task-record prose.
+- Put each paragraph, list item, and numbered step on one source line.
+- Let the editor or Markdown renderer wrap text visually.
+
 ## Statuses
 
 | Status | Meaning |

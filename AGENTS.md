@@ -8,6 +8,8 @@ Before responding to a user request, read [Communication Style](guidelines/commu
 
 Before planning, implementation, or design work, read [Workflow](guidelines/workflow.md) by direct path. Then read the consuming repository's root `AGENTS.md` and relevant routed domain instructions if they have not already been read for the current task.
 
+Before adding, changing, removing, or relying on a source comment with an `AI-<CATEGORY>:` marker, read [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) by direct path.
+
 ## Guideline Index
 
 | Guideline | Authority |
@@ -18,6 +20,7 @@ Before planning, implementation, or design work, read [Workflow](guidelines/work
 | [Interviewing](guidelines/interviewing.md) | Inspect-first discovery, decision-relevant questions, assumptions, and issue prioritization. |
 | [Commit Guidelines](guidelines/commits.md) | Commit authorization, staging discipline, and message structure. |
 | [Progressive Disclosure](guidelines/progressive-disclosure.md) | Instruction ownership, placement, overrides, promotion, pruning, and review. |
+| [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) | Machine-facing source-comment markers, allowed content, precedence, maintenance, and review. |
 
 Each reusable rule has one owner document. Other files should link to the owner instead of redefining the rule.
 
