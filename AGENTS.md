@@ -8,7 +8,7 @@ Before responding to a user request, read [Communication Style](guidelines/commu
 
 Before planning, implementation, or design work, read [Workflow](guidelines/workflow.md) by direct path. Then read the consuming repository's root `AGENTS.md` and relevant routed domain instructions if they have not already been read for the current task.
 
-Before adding, changing, removing, or relying on a source comment with an `AI-<CATEGORY>:` marker, read [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) by direct path.
+Before planning or implementing a source-code change, read [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) by direct path. Use the guideline to find applicable existing comments and to decide whether the planned work creates or changes a constraint that needs an AI-exclusive comment.
 
 ## Guideline Index
 
