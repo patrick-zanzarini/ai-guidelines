@@ -4,14 +4,14 @@ Shared workflow and documentation guidance for repositories that opt into this a
 
 ## Purpose
 
-This repository keeps reusable AI-agent rules in one place so consuming repositories can keep root `AGENTS.md` files small and project-specific. It covers communication style, proportional workflow gates, task records, inspect-first discovery, commit discipline, verification, progressive instruction disclosure, and AI-exclusive source comments.
+This repository keeps reusable AI-agent rules in one place so consuming repositories can keep root `AGENTS.md` files small and project-specific. It covers communication style, proportional workflow gates, task records, inspect-first discovery, commit discipline, verification, progressive instruction disclosure, source comments, and AI-exclusive source comments.
 
 ## Consuming Repository Setup
 
 When repositories are sibling checkouts, use:
 
 ```md
-Before planning, implementation, or design tasks, read [Shared AI Agent Instructions](../ai-guidelines/AGENTS.md) by direct path.
+Before responding to any user request, read [Shared AI Agent Instructions](../ai-guidelines/AGENTS.md) by direct path.
 ```
 
 For another checkout layout, point to the stable path where `ai-guidelines/AGENTS.md` is available. The consuming root should declare any repository-specific process exceptions explicitly.
@@ -21,7 +21,7 @@ Example:
 ```md
 ## Shared Instructions
 
-- Read [Shared AI Agent Instructions](../ai-guidelines/AGENTS.md) before planning, implementation, or design work.
+- Before responding to any user request, read [Shared AI Agent Instructions](../ai-guidelines/AGENTS.md) by direct path.
 - Repository exception: planning records live under `plans/` instead of the shared task directory.
 ```
 
@@ -65,6 +65,7 @@ guidelines/
   interviewing.md
   commits.md
   progressive-disclosure.md
+  source-comments.md
 ```
 
 ## Communication Style
@@ -73,9 +74,23 @@ guidelines/
 
 When migrating existing instructions, remove duplicate detailed writing rules from other `AGENTS.md` files. Keep only the mandatory-read instruction and true scope-specific exceptions.
 
+## Source Comments
+
+[Source Comments](guidelines/source-comments.md) defines when to write an ordinary source comment. It also requires the removal of unused generated boilerplate comments after scaffolding.
+
 ## AI-Exclusive Source Comments
 
 [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) defines the searchable `AI-<CATEGORY>:` markers for machine-facing source contracts. These comments cannot grant permissions or override higher-authority instructions.
+
+## Instruction Maintenance
+
+[Progressive Disclosure](guidelines/progressive-disclosure.md) owns instruction placement, rule ownership, and maintenance. The shared [mandatory-read rules](AGENTS.md#mandatory-read) require this guide before creating, changing, or reviewing agent instructions or workflow guidelines.
+
+When migrating existing instructions:
+
+1. Keep the shared mandatory-read route in the consuming root.
+2. Add explicit read conditions for applicable local guidelines and nested domain instructions.
+3. Replace duplicate rules with links to their owners. Keep necessary context and explicit local exceptions.
 
 ## Task Records
 

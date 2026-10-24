@@ -8,7 +8,9 @@ Before responding to a user request, read [Communication Style](guidelines/commu
 
 Before planning, implementation, or design work, read [Workflow](guidelines/workflow.md) by direct path. Then read the consuming repository's root `AGENTS.md` and relevant routed domain instructions if they have not already been read for the current task.
 
-Before planning or implementing a source-code change, read [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) by direct path. Use the guideline to find applicable existing comments and to decide whether the planned work creates or changes a constraint that needs an AI-exclusive comment.
+Before planning or implementing a source-code change, read [Source Comments](guidelines/source-comments.md) and [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) by direct path. Use the AI-exclusive guideline to find applicable existing comments and to decide whether the planned work creates or changes a constraint that needs an AI-exclusive comment.
+
+Before creating, changing, or reviewing agent instructions or workflow guidelines, read and follow [Progressive Disclosure](guidelines/progressive-disclosure.md) by direct path.
 
 ## Guideline Index
 
@@ -20,6 +22,7 @@ Before planning or implementing a source-code change, read [AI-Exclusive Source 
 | [Interviewing](guidelines/interviewing.md) | Inspect-first discovery, decision-relevant questions, assumptions, and issue prioritization. |
 | [Commit Guidelines](guidelines/commits.md) | Commit authorization, staging discipline, and message structure. |
 | [Progressive Disclosure](guidelines/progressive-disclosure.md) | Instruction ownership, placement, overrides, promotion, pruning, and review. |
+| [Source Comments](guidelines/source-comments.md) | Ordinary source comments, generated boilerplate, and review. |
 | [AI-Exclusive Source Comments](guidelines/ai-exclusive-comments.md) | Machine-facing source-comment markers, allowed content, precedence, maintenance, and review. |
 
 Each reusable rule has one owner document. Other files should link to the owner instead of redefining the rule.

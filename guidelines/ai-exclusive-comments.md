@@ -1,6 +1,6 @@
 # AI-Exclusive Source Comments
 
-This document is the single source of truth for source comments that exist exclusively for AI agents.
+This document is the single source of truth for source comments that exist exclusively for AI agents. [Source Comments](source-comments.md) owns ordinary source comments.
 
 AI-exclusive comments record durable engineering constraints that an agent cannot reliably infer from code. They are machine-facing context. They are not user documentation, API documentation, or a substitute for clear code, types, tests, assertions, or architecture documents.
 
